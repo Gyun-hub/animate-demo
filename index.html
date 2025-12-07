@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animate.css Demo</title>
+    <link rel="stylesheet" href="animate.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f8f9fa;
+            color: #212529;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Changed to column to separate controls and display */
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%; /* Take full height */
+        }
+        .controls {
+            width: 50%;
+            padding: 2rem;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+        .animation-category {
+            margin-bottom: 2rem;
+        }
+        .animation-category h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            color: #495057;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .button-group button {
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: white;
+            color: #007bff;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .button-group button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        #animation-target {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            font-weight: bold;
+            color: #343a40;
+            text-align: center;
+            --animate-duration: 1s; /* Default animation duration */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="controls">
+            <!-- Animation buttons will be dynamically added here -->
+        </div>
+
+        <div id="animation-target" class="animate__animated">
+            Animate Me
+        </div>
+    </div>
+
+    <script>
+        const animations = {
+            "Attention Seekers": ['bounce', 'flash', 'pulse', 'rubberBand', 'shakeX', 'shakeY', 'headShake', 'swing', 'tada', 'wobble', 'jello', 'heartBeat'],
+            "Back Entrances": ['backInDown', 'backInLeft', 'backInRight', 'backInUp'],
+            "Back Exits": ['backOutDown', 'backOutLeft', 'backOutRight', 'backOutUp'],
+            "Bouncing Entrances": ['bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp'],
+            "Bouncing Exits": ['bounceOut', 'bounceOutDown', 'bounceOutLeft', 'bounceOutRight', 'bounceOutUp'],
+            "Fading Entrances": ['fadeIn', 'fadeInDown', 'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp', 'fadeInUpBig', 'fadeInTopLeft', 'fadeInTopRight', 'fadeInBottomLeft', 'fadeInBottomRight'],
+            "Fading Exits": ['fadeOut', 'fadeOutDown', 'fadeOutDownBig', 'fadeOutLeft', 'fadeOutLeftBig', 'fadeOutRight', 'fadeOutRightBig', 'fadeOutUp', 'fadeOutUpBig', 'fadeOutTopLeft', 'fadeOutTopRight', 'fadeOutBottomRight', 'fadeOutBottomLeft'],
+            "Flippers": ['flip', 'flipInX', 'flipInY', 'flipOutX', 'flipOutY'],
+            "Lightspeed": ['lightSpeedInRight', 'lightSpeedInLeft', 'lightSpeedOutRight', 'lightSpeedOutLeft'],
+            "Rotating Entrances": ['rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight'],
+            "Rotating Exits": ['rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight'],
+            "Specials": ['hinge', 'jackInTheBox', 'rollIn', 'rollOut'],
+            "Zooming Entrances": ['zoomIn', 'zoomInDown', 'zoomInLeft', 'zoomInRight', 'zoomInUp'],
+            "Zooming Exits": ['zoomOut', 'zoomOutDown', 'zoomOutLeft', 'zoomOutRight', 'zoomOutUp'],
+            "Sliding Entrances": ['slideInDown', 'slideInLeft', 'slideInRight', 'slideInUp'],
+            "Sliding Exits": ['slideOutDown', 'slideOutLeft', 'slideOutRight', 'slideOutUp']
+        };
+
+        const controlsDiv = document.querySelector('.controls');
+        const target = document.getElementById('animation-target');
+
+        // Dynamically create category sections and buttons
+        for (const category in animations) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('animation-category');
+
+            const heading = document.createElement('h3');
+            heading.textContent = category;
+            categoryDiv.appendChild(heading);
+
+            const buttonGroup = document.createElement('div');
+            buttonGroup.classList.add('button-group');
+
+            animations[category].forEach(animationName => {
+                const button = document.createElement('button');
+                button.textContent = animationName;
+                button.addEventListener('click', () => {
+                    // Reset animation by removing and re-adding class
+                    target.classList.remove(...target.classList); // Remove all existing classes
+                    target.classList.add('animate__animated'); // Add base class
+                    target.classList.add(`animate__${animationName}`); // Add animation class
+
+                    // Listen for animation end to clean up classes if needed, or to enable re-triggering
+                    target.addEventListener('animationend', () => {
+                        // Optionally, remove the specific animation class after it ends
+                        // target.classList.remove(`animate__${animationName}`);
+                        // For this demo, we keep animate__animated to make it ready for next animation
+                    }, { once: true }); // Ensure this listener runs only once
+                });
+                buttonGroup.appendChild(button);
+            });
+            categoryDiv.appendChild(buttonGroup);
+            controlsDiv.appendChild(categoryDiv);
+        }
+    </script>
+
+</body>
+</html>
