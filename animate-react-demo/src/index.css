@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.animation-buttons {
+  width: 50%;
+  padding: 2rem;
+  overflow-y: auto;
+  border-right: 1px solid #dee2e6;
+}
+
+.animation-category {
+  margin-bottom: 2rem;
+}
+
+.animation-category h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #495057;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button-group button {
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  color: #007bff;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.button-group button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.text-display {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-display div {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #343a40;
+  text-align: center;
+  --animate-duration: 1s; /* Default animation duration */
+}
