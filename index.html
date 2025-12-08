@@ -6,8 +6,11 @@
     <title>Animate.css Demo</title>
     <link rel="stylesheet" href="animate.css">
     <style>
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling on the body */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif;
@@ -15,22 +18,18 @@
             -moz-osx-font-smoothing: grayscale;
             background-color: #f8f9fa;
             color: #212529;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column; /* Changed to column to separate controls and display */
         }
         .container {
             display: flex;
             width: 100%;
-            height: 100%; /* Take full height */
+            height: 100%;
         }
         .controls {
             width: 50%;
             padding: 2rem;
             overflow-y: auto;
             border-right: 1px solid #dee2e6;
+            box-sizing: border-box;
         }
         .animation-category {
             margin-bottom: 2rem;
@@ -73,6 +72,28 @@
             color: #343a40;
             text-align: center;
             --animate-duration: 1s; /* Default animation duration */
+            flex-shrink: 0;
+            box-sizing: border-box;
+            padding: 1rem;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .controls {
+                width: 60%; /* Give more space to buttons */
+                padding: 1rem; /* Reduce padding */
+            }
+            #animation-target {
+                width: 40%; /* Text area gets less space */
+                font-size: 2rem; /* Drastically reduce font size */
+            }
+            .animation-category h3 {
+                font-size: 1rem;
+            }
+            .button-group button {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -131,13 +152,6 @@
                     target.classList.remove(...target.classList); // Remove all existing classes
                     target.classList.add('animate__animated'); // Add base class
                     target.classList.add(`animate__${animationName}`); // Add animation class
-
-                    // Listen for animation end to clean up classes if needed, or to enable re-triggering
-                    target.addEventListener('animationend', () => {
-                        // Optionally, remove the specific animation class after it ends
-                        // target.classList.remove(`animate__${animationName}`);
-                        // For this demo, we keep animate__animated to make it ready for next animation
-                    }, { once: true }); // Ensure this listener runs only once
                 });
                 buttonGroup.appendChild(button);
             });

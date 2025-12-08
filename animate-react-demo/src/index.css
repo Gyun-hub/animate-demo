@@ -1,5 +1,8 @@
-body {
+body, html {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling on the body */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -19,6 +22,7 @@ body {
   padding: 2rem;
   overflow-y: auto;
   border-right: 1px solid #dee2e6;
+  box-sizing: border-box;
 }
 
 .animation-category {
@@ -62,6 +66,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding: 1rem;
 }
 
 .text-display div {
@@ -70,4 +76,25 @@ body {
   color: #343a40;
   text-align: center;
   --animate-duration: 1s; /* Default animation duration */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .animation-buttons {
+    width: 60%; /* Give more space to buttons */
+    padding: 1rem; /* Reduce padding */
+  }
+  .text-display {
+    width: 40%; /* Text area gets less space */
+  }
+  .text-display div {
+    font-size: 2rem; /* Drastically reduce font size */
+  }
+  .animation-category h3 {
+    font-size: 1rem;
+  }
+  .button-group button {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
 }
